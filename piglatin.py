@@ -14,10 +14,14 @@ class PigLatin:
         
     def translate(self) -> str:
         translation:str = ""
-        if self.phrase[-1] in self.vowels:
-            translation = self.phrase + "yay"
-        elif self.phrase[-1] is "y":
-            translation = self.phrase + "nay"
+        temp:str = ""
+        if self.phrase[0] not in self.vowels:
+            temp = self.phrase[1:] + self.phrase[0]
+
+        if temp[-1] in self.vowels:
+            translation = temp + "yay"
+        elif temp[-1] is "y":
+            translation = temp + "nay"
         else:
-            translation = self.phrase + "ay"
+            translation = temp + "ay"
         return translation
