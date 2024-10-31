@@ -17,20 +17,39 @@ class PigLatin:
     def translate(self) -> str:
         words = self.phrase.split()
         translation:str = ""
-
+        type_word = 0
         for i, word in enumerate(words):
+            if not self.check_upper(word):
+                raise PigLatinError
+            
+            if word.isupper():
+                type_word = 1
+            elif word[0].isupper():
+                type_word = 2
+
             if '-' in word:
                 temp_words = word.split("-")
-                translation = self.modify_words(temp_words, "-")
+                translation = self.modify_words(temp_words, "-", type_word)
             else:
-                translation = self.modify_words(words," ")
+                translation = self.modify_words(words," ", type_word)
         return translation
     
-    def modify_words(self, words, modifier:str) -> str:
+    def check_upper(self, word:str) -> bool:
+        if word.isupper():
+            return True
+        
+        if word[0].isupper():
+            if word[1:].islower():
+                return True
+        
+        return False
+
+
+    def modify_words(self, words, modifier:str, type_word:int) -> str:
         translation: str = "" 
         # Only testing the examples
         for i, word in enumerate(words):
-            temp:str = word
+            temp:str = word.lower()
             punctuation = ""
             position = -1
             for x in temp:
@@ -59,4 +78,11 @@ class PigLatin:
                 translation = punctuation + translation
             else:
                 translation = translation + punctuation
+
+            if type_word == 1:
+                translation = translation.upper()
+            elif type_word == 2:
+                first_letter =  translation[0].upper()
+                translation = first_letter + translation[1:]
+
         return translation

@@ -58,3 +58,17 @@ class TestPigLatin(unittest.TestCase):
     def test_translate_wrong_punctuation(self):
         translator:PigLatin = PigLatin("hello world!+")
         self.assertRaises(PigLatinError,translator.translate)
+    
+    def test_translate_upper_case(self):
+        translator:PigLatin = PigLatin("APPLE")
+        translation = translator.translate()
+        self.assertEqual("APPLEYAY",translation)
+
+    def test_upper_case_one_letter(self):
+        translator:PigLatin = PigLatin("Hello")
+        translation = translator.translate()
+        self.assertEqual("Ellohay",translation)
+
+    def test_upper_middle_word(self):
+        translator:PigLatin = PigLatin("biRd")
+        self.assertRaises(PigLatinError,translator.translate)
