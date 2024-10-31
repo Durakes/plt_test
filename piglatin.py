@@ -14,9 +14,10 @@ class PigLatin:
         
     def translate(self) -> str:
         translation:str = ""
-        temp:str = ""
-        if self.phrase[0] not in self.vowels:
-            temp = self.phrase[1:] + self.phrase[0]
+        temp:str = self.get_phrase()
+        while temp[0] not in self.vowels:
+            consonant = temp[0]
+            temp = temp[1:] + consonant
 
         if temp[-1] in self.vowels:
             translation = temp + "yay"
