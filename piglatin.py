@@ -8,6 +8,8 @@ class PigLatin:
         return cls(phrase)
 
     def get_phrase(self) -> str:
+        if self.phrase is "":
+            return "nil"
         return self.phrase
         
     def translate(self) -> str:
